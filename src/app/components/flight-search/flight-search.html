@@ -1,0 +1,117 @@
+<div class="flights-background">
+  <nav class="skyways-navbar navbar navbar-expand-lg">
+  <div class="container">
+    <span class="navbar-brand">SkyWays Airlines</span>
+    <div class="d-flex align-items-center">
+      <span class="text-white me-3">
+        Welcome, <strong style="color: #c9a84c">{{ username }}</strong>
+      </span>
+      <button class="btn btn-outline-warning btn-sm me-2"
+              (click)="goToMyBookings()">
+        My Bookings
+      </button>
+      <button class="btn btn-outline-light btn-sm" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </div>
+</nav>
+ 
+  <!-- Hero Section -->
+  <div class="container mt-4">
+    <div class="text-center mb-4">
+      <h1 style="color: #c9a84c; font-weight: 700; font-size: 2.5rem;">
+        Where do you want to fly?
+      </h1>
+      <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem;">
+        Search from hundreds of flights at the best prices
+      </p>
+    </div>
+ 
+    <!-- Search Card -->
+    <div class="search-card p-4 mb-4">
+      <h5 style="color: #0a1628; font-weight: 700; margin-bottom: 20px;">
+        Search Flights
+      </h5>
+      <div class="row align-items-end">
+        <div class="col-md-4 mb-3">
+          <label class="form-label fw-bold">From</label>
+          <input type="text" class="form-control form-control-lg"
+                 [(ngModel)]="origin"
+                 placeholder="e.g. Mumbai"/>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label fw-bold">To</label>
+          <input type="text" class="form-control form-control-lg"
+                 [(ngModel)]="destination"
+                 placeholder="e.g. Delhi"/>
+        </div>
+        <div class="col-md-4 mb-3">
+          <button class="btn btn-lg w-100 fw-bold"
+                  style="background: linear-gradient(135deg, #c9a84c, #f0c060);
+                         color: #0a1628; border: none;"
+                  (click)="onSearch()">
+            Search Flights
+          </button>
+        </div>
+      </div>
+      <div *ngIf="message" class="alert alert-warning mt-2">
+        {{ message }}
+      </div>
+      <div *ngIf="searched" class="mt-2">
+        <a href="#" (click)="onClear()" style="color: #0a1628;">
+          ← Show all flights
+        </a>
+      </div>
+    </div>
+ 
+    <!-- Flights Grid -->
+    <h5 style="color: white; font-weight: 700; margin-bottom: 15px;">
+      Available Flights ({{ flights.length }})
+    </h5>
+    <div class="row">
+      <div class="col-md-6 mb-4" *ngFor="let flight of flights">
+        <div class="flight-card p-3">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="flight-number">{{ flight.flightNumber }}</span>
+            <span class="price-badge">₹{{ flight.price }}</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="text-center">
+              <h4 style="color: #0a1628; font-weight: 700; margin: 0;">
+                {{ flight.origin }}
+              </h4>
+              <small class="text-muted">{{ flight.departureTime }}</small>
+            </div>
+            <div class="text-center px-3">
+              <div style="border-top: 2px dashed #c9a84c; 
+                          position: relative; width: 80px;">
+                <span style="position: absolute; top: -12px; 
+                             left: 50%; transform: translateX(-50%); 
+                             font-size: 1.2rem;"></span>
+              </div>
+            </div>
+            <div class="text-center">
+              <h4 style="color: #0a1628; font-weight: 700; margin: 0;">
+                {{ flight.destination }}
+              </h4>
+              <small class="text-muted">{{ flight.arrivalTime }}</small>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <small class="text-muted">
+              {{ flight.availableSeats }} seats available
+            </small>
+            <button class="btn btn-sm fw-bold px-4"
+                    style="background: linear-gradient(135deg, #0a1628, #1a2d4f);
+                           color: #c9a84c; border: none; border-radius: 20px;"
+                    (click)="onBook(flight)">
+              Book Now →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
