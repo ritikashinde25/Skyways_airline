@@ -44,9 +44,9 @@ export class PaymentComponent implements OnInit {
   async ngOnInit() {
     this.bookingId = this.route.snapshot.paramMap.get('bookingId');
     this.payment.bookingId = this.bookingId;
-    this.payment.amount=50000;
     // ✅ Paste your pk_test_... key inside these quotes
-    this.stripe = await loadStripe('pk_test_51TYOIXGSZQfOA0NVX3gZ7JHkClZTcqCe7i0hyq20ij3hcC08ePQvXnE3NtamrxDkoMNLpNvy6q03Pkcro33zNELV00Pfu0hNDJ');
+    import { environment } from '../../environments/environments';
+    this.stripe = await loadStripe(environment.stripePublishableKey);
 
     // ✅ Only mount Stripe card element for CREDIT/DEBIT card
     this.mountStripeCard();
